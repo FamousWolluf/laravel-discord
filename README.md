@@ -23,6 +23,7 @@ Add a (custom) emoji reaction to the message send.
         - [Setting up your Discord bot](#setting-up-your-discord-bot)
     - [Usage](#usage)
         - [Available Message methods](#available-message-methods)
+    - [Example embed message](#example-embed-message)
     - [Changelog](#changelog)
     - [Testing](#testing)
     - [Security](#security)
