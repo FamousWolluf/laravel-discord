@@ -54,6 +54,11 @@ class Discord
         return $this->request('POST', 'channels/'.$channel.'/messages', $data);
     }
 
+    public function addReaction($channel, int $messageId, string $reaction)
+    {
+        return $this->request('PUT', 'channels/'.$channel.'/messages/'.$messageId.'/reactions/'.$reaction.'/@me', []);
+    }
+
     /**
      * Get a private channel with another Discord user from their snowflake ID.
      *

@@ -1,14 +1,19 @@
 # Discord notification channel for Laravel 6.0+
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/laravel-notification-channels/discord.svg?style=flat-square)](https://packagist.org/packages/laravel-notification-channels/discord)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/famouswolluf/laravel-discord.svg?style=flat-square)](https://packagist.org/packages/famouswolluf/laravel-discord)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![Build Status](https://img.shields.io/github/workflow/status/laravel-notification-channels/discord/PHP.svg?style=flat-square)](https://github.com/laravel-notification-channels/discord/actions)
-[![StyleCI](https://styleci.io/repos/65772492/shield)](https://styleci.io/repos/65772492)
-[![Quality Score](https://img.shields.io/scrutinizer/g/laravel-notification-channels/discord.svg?style=flat-square)](https://scrutinizer-ci.com/g/laravel-notification-channels/discord)
-[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/laravel-notification-channels/discord/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/laravel-notification-channels/discord/?branch=master)
-[![Total Downloads](https://img.shields.io/packagist/dt/laravel-notification-channels/discord.svg?style=flat-square)](https://packagist.org/packages/laravel-notification-channels/discord)
+[![Quality Score](https://img.shields.io/scrutinizer/g/famouswolluf/laravel-discord.svg?style=flat-square)](https://scrutinizer-ci.com/g/famouswolluf/laravel-discord)
+[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/famouswolluf/laravel-discord/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/famouswolluf/laravel-discord/?branch=master)
+[![Total Downloads](https://img.shields.io/packagist/dt/famouswolluf/laravel-discord.svg?style=flat-square)](https://packagist.org/packages/famouswolluf/laravel-discord)
 
 This package makes it easy to send notifications using the [Discord bot API](https://discord.com/developers/docs/intro) with Laravel.
+
+## Fork
+This is a fork on https://github.com/laravel-notification-channels/discord with extra functionality.
+
+## Added functionalities
+Add a (custom) emoji reaction to the message send.
 
 ## Contents
 
@@ -31,7 +36,7 @@ This package makes it easy to send notifications using the [Discord bot API](htt
 You can install the package via composer:
 
 ```bash
-composer require laravel-notification-channels/discord
+composer require famouswolluf/laravel-discord
 ```
 
 Next, you must load the service provider:
@@ -145,7 +150,59 @@ class GameChallengeNotification extends Notification
 * `body(string)`: Set the content of the message. ([Supports basic markdown](https://support.discord.com/hc/en-us/articles/210298617-Markdown-Text-101-Chat-Formatting-Bold-Italic-Underline-))
 * `embed(array)`: Set the embedded content. ([View embed structure](https://discord.com/developers/docs/resources/channel#embed-object))
 * `components(array)`: Set the component content. ([View component structure](https://discord.com/developers/docs/interactions/message-components#component-object))
+* * `reaction(string)`: Set a (custom) emoji as reaction. ([View reaction structure](https://discord.com/developers/docs/resources/channel#create-reaction))
 
+
+## Example Embed Message
+```php
+// ...
+use NotificationChannels\Discord\DiscordChannel;
+use NotificationChannels\Discord\DiscordMessage;
+
+class SendDiscordEmbedMessage extends Notification
+{
+    private $channelId;
+    private $messageData;
+    private $reaction;
+
+    public function __construct($channelId = null, $messageContent = null, $reaction = null)
+    {
+        $this->channelId = $channelId;
+        $this->messageData = $messageContent;
+        $this->reaction = $reaction;
+    }
+
+    public function getChannelId()
+    {
+        return $this->channelId;
+    }
+
+    public function via($notifiable)
+    {
+        return [DiscordChannel::class];
+    }
+
+
+    public function toDiscord($notifiable)
+    {
+        $discordMessage = DiscordMessage::create()
+            ->embed([
+                'title'         => $this->messageData['title'],
+                'description'   => $this->messageData['message'],
+                'color'         => $this->messageData['color'],
+                'image'         => [
+                    'url'   => $this->messageData['image']
+                ],
+            ]);
+
+        if ($this->reaction) {
+            $discordMessage->reaction($this->reaction);
+        }
+
+        return $discordMessage;
+    }
+}
+```
 
 ## Changelog
 
@@ -157,17 +214,8 @@ Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recen
 $ composer test
 ```
 
-## Security
-
-If you discover any security related issues, please email cs475x@icloud.com instead of using the issue tracker.
-
-## Contributing
-
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
-
 ## Credits
 
-- [Cody Scott](https://github.com/codyphobe)
 - [All Contributors](../../contributors)
 
 ## License

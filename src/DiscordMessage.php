@@ -26,14 +26,21 @@ class DiscordMessage
     public $components;
 
     /**
+     * Add raction eomoji to the message
+     *
+     * @var string
+     */
+    public $reaction;
+
+    /**
      * @param string     $body
      * @param array|null $embed
      *
      * @return static
      */
-    public static function create($body = '', $embed = [], $components = [])
+    public static function create($body = '', $embed = [], $components = [], $reaction = '')
     {
-        return new static($body, $embed, $components);
+        return new static($body, $embed, $components, $reaction);
     }
 
     /**
@@ -71,6 +78,20 @@ class DiscordMessage
     public function embed($embed)
     {
         $this->embed = $embed;
+
+        return $this;
+    }
+
+    /**
+     * Set an emoji reaction for the message.
+     *
+     * @param $reaction
+     *
+     * @return $this
+     */
+    public function reaction($reaction)
+    {
+        $this->reaction = $reaction;
 
         return $this;
     }

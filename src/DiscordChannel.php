@@ -37,10 +37,17 @@ class DiscordChannel
 
         $message = $notification->toDiscord($notifiable);
 
-        return $this->discord->send($channel, [
+        $sendedMessage = $this->discord->send($channel, [
             'content' => $message->body,
             'embed' => $message->embed,
-            'components' => $message->components
+            'components' => $message->components,
         ]);
+
+        if ($sendedMessage && $message->reaction) {
+            $messageId = $sendedMessage['id'];
+            $this->discord->addReaction($channel, $messageId, $message->reaction);
+        }
+
+        return $sendedMessage;
     }
 }
