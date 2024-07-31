@@ -2,7 +2,7 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/famouswolluf/laravel-discord.svg?style=flat-square)](https://packagist.org/packages/famouswolluf/laravel-discord)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![Build Status](https://img.shields.io/github/workflow/status/famouswolluf/laravel-discord/PHP.svg?style=flat-square)](https://github.com/laravel-notification-channels/discord/actions)
+[![Build Status](https://img.shields.io/github/workflow/status/famouswolluf/laravel-discord/PHP.svg?style=flat-square)](https://github.com/famouswolluf/laravel-discord/actions)
 [![Quality Score](https://img.shields.io/scrutinizer/g/famouswolluf/laravel-discord.svg?style=flat-square)](https://scrutinizer-ci.com/g/famouswolluf/laravel-discord)
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/famouswolluf/laravel-discord/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/famouswolluf/laravel-discord/?branch=master)
 [![Total Downloads](https://img.shields.io/packagist/dt/famouswolluf/laravel-discord.svg?style=flat-square)](https://packagist.org/packages/famouswolluf/laravel-discord)
