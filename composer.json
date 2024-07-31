@@ -1,5 +1,5 @@
 {
-    "name": "laravel-notification-channels/discord",
+    "name": "famouswolluf/laravel-discord",
     "description": "Laravel notification driver for Discord.",
     "keywords": [
         "laravel",
@@ -8,12 +8,12 @@
         "channel",
         "discord"
     ],
-    "homepage": "https://github.com/laravel-notification-channels/discord",
+    "homepage": "https://github.com/FamousWolluf/laravel-discord",
     "license": "MIT",
     "authors": [
         {
-            "name": "Cody Scott",
-            "email": "cs475x@icloud.com",
+            "name": "FamousWolluf",
+            "email": "-",
             "role": "Developer"
         }
     ],
